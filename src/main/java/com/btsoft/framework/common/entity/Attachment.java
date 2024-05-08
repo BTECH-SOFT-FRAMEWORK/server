@@ -2,13 +2,15 @@ package com.btsoft.framework.common.entity;
 
 import com.btsoft.framework.company.entity.Company;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.experimental.SuperBuilder;
+import lombok.NoArgsConstructor;
 
 @Entity
-@SuperBuilder
 @Getter
 @Table(name = "BC_FILE")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Attachment extends BaseEntity {
 
     @Id
@@ -39,7 +41,14 @@ public class Attachment extends BaseEntity {
     @JoinColumn(name = "BC_COMPANY_ID")
     private Company company;
 
-    protected Attachment() {
-        super();
+    @Builder
+    private Attachment(String originalFileName, String savedFileName, Long priority, Long fileSize, String path, Attachment parent, Company company) {
+        this.originalFileName = originalFileName;
+        this.savedFileName = savedFileName;
+        this.priority = priority;
+        this.fileSize = fileSize;
+        this.path = path;
+        this.parent = parent;
+        this.company = company;
     }
 }

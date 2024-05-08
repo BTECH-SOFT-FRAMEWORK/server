@@ -4,13 +4,15 @@ import com.btsoft.framework.common.entity.BaseEntity;
 import com.btsoft.framework.company.entity.Company;
 import com.btsoft.framework.member.entity.Member;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.experimental.SuperBuilder;
+import lombok.NoArgsConstructor;
 
 @Entity
-@SuperBuilder
 @Getter
 @Table(name = "SY_POLICY_U")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberRole extends BaseEntity {
 
     @Id
@@ -30,7 +32,10 @@ public class MemberRole extends BaseEntity {
     @JoinColumn(name = "BC_COMPANY_ID")
     private Company company;
 
-    protected MemberRole() {
-        super();
+    @Builder
+    private MemberRole(Member member, Role role, Company company) {
+        this.member = member;
+        this.role = role;
+        this.company = company;
     }
 }

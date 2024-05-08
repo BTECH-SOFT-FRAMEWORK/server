@@ -3,13 +3,15 @@ package com.btsoft.framework.company.entity;
 import com.btsoft.framework.common.entity.Address;
 import com.btsoft.framework.common.entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.experimental.SuperBuilder;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "BC_COMPANY")
 @Getter
-@SuperBuilder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Company extends BaseEntity {
 
     @Id
@@ -32,7 +34,12 @@ public class Company extends BaseEntity {
     @Embedded
     private Address address;
 
-    protected Company() {
-        super();
+    @Builder
+    private Company(Long code, String name, String businessNumber, String repDirectorName, Address address) {
+        this.code = code;
+        this.name = name;
+        this.businessNumber = businessNumber;
+        this.repDirectorName = repDirectorName;
+        this.address = address;
     }
 }

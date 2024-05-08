@@ -3,13 +3,15 @@ package com.btsoft.framework.role.entity;
 import com.btsoft.framework.common.entity.BaseEntity;
 import com.btsoft.framework.company.entity.Company;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.experimental.SuperBuilder;
+import lombok.NoArgsConstructor;
 
 @Entity
-@SuperBuilder
 @Getter
 @Table(name = "SY_POLICY_H")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Role extends BaseEntity {
 
     @Id
@@ -30,7 +32,11 @@ public class Role extends BaseEntity {
     @JoinColumn(name = "BC_COMPANY_ID")
     private Company company;
 
-    protected Role() {
-        super();
+    @Builder
+    private Role(String code, String name, String description, Company company) {
+        this.code = code;
+        this.name = name;
+        this.description = description;
+        this.company = company;
     }
 }
